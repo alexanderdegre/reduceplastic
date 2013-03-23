@@ -11,13 +11,18 @@ Background:
   		| Green Tea  		| this tea wasn't green when it was made 		 | 			  		   |
 
 Scenario: show product description
-	When I am on the products details page for product "Lemon Lotion"
+	Given I am on the products details page for product "Lemon Lotion"
 	Then I should see the product description "smells like lemon but does taste like lemon ;)"
 	
 Scenario: show product categories
-	When I am on the products details page for product "Lemon Lotion"
+	Given I am on the products details page for product "Lemon Lotion"
 	Then I should see the product categories:
 		| name 	  |
 		| bath 	  |
 		| lotions |
 		| fruity  |
+		
+Scenario: follow category link
+	Given I am on the products details page for product "Lemon Lotion"
+	When I click on the category "bath"
+	Then I should be on the category page for "bath"

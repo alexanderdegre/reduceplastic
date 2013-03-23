@@ -18,6 +18,14 @@ Then(/^I should see the product description "(.*?)"$/) do |product_description|
   page.should have_content product_description
 end
 
+When(/^I click on the category "(.*?)"$/) do |category_name|
+  click_link category_name 
+end
+
+Then(/^I should be on the category page for "(.*?)"$/) do |category_name|
+  current_url.should == category_by_name_url(category_name)
+end
+
 Then(/^I should see the product categories:$/) do |categories|
   # table is a Cucumber::Ast::Table
   categories.hashes.each do |row|
