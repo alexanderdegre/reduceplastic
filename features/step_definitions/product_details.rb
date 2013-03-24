@@ -23,7 +23,7 @@ When(/^I click on the category "(.*?)"$/) do |category_name|
 end
 
 Then(/^I should be on the category page for "(.*?)"$/) do |category_name|
-  current_url.should == category_by_name_url(category_name)
+  current_url.should == category_url(category_name)
 end
 
 Then(/^I should see the product categories:$/) do |categories|

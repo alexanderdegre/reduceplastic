@@ -1,5 +1,4 @@
 WenigerPlastik::Application.routes.draw do
-  match 'categories/:name' => 'categories#show_name', :via => :get, :as => :category_by_name
   resources :categories
   
   resources :products

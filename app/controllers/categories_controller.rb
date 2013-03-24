@@ -3,8 +3,7 @@ class CategoriesController < ApplicationController
     @categories = Category.all
   end
   
-  def show_name
-    @category = Category.find_by_name(params[:name])
-    render :show
+  def show
+    @category = Category.find_by_url(params[:id])
   end
 end

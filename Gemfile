@@ -22,19 +22,25 @@ end
 
 gem 'jquery-rails'
 
-# cucumber
-group :test do 
+#added
+gem 'stringex'
+
+group :test do
   gem 'cucumber-rails'
-end
-group :test, :development do 
-  gem 'database_cleaner'
   gem 'capybara'  
-  gem 'launchy'
-  gem 'rspec'
   gem 'spork'
-  gem 'factory_girl_rails', '~> 4.0'
+
+  gem 'rspec'
+  gem 'rspec-rails'
   
+  gem 'factory_girl_rails', '~> 4.0'  
   gem 'simplecov', :require => false
+
+  gem 'database_cleaner'
+end
+
+group :test, :development do 
+  gem 'launchy'  
 end
 
 # To use ActiveModel has_secure_password
