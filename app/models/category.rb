@@ -1,5 +1,6 @@
 class Category < ActiveRecord::Base
   attr_accessible :name
+  validates :name, :uniqueness => true
   
   acts_as_url :name
   def to_param
@@ -7,5 +8,4 @@ class Category < ActiveRecord::Base
   end
   
   has_and_belongs_to_many :products
-  
 end

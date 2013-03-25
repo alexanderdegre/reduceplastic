@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130324231641) do
+ActiveRecord::Schema.define(:version => 20130325221447) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20130324231641) do
   end
 
   add_index "categories", ["name"], :name => "index_categories_on_name", :unique => true
+  add_index "categories", ["url"], :name => "index_categories_on_url", :unique => true
 
   create_table "categories_products", :id => false, :force => true do |t|
     t.integer "category_id"
