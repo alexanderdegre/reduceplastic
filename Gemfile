@@ -24,9 +24,10 @@ gem 'jquery-rails'
 
 #added
 gem 'stringex'
+gem 'geocoder'
 
 group :test do
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', :require => false
   gem 'capybara'  
   gem 'spork'
 
