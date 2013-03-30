@@ -38,6 +38,11 @@ describe Shop do
     describe "address validations via geocoding" do
       #sample url: http://maps.googleapis.com/maps/api/geocode/json?address=Hauptstrasse%20100,%20Frankfurt&sensor=false
       
+      before :each do
+          #ensure that "address_not_found" will be called now
+          Shop.class_eval 'def has_validation_errors?; false; end'
+      end
+      
       it "address not precise - no precise result" do
         shop = FactoryGirl.build(:shop, street: 'Wil 5', city: 'Ofen')
         
