@@ -66,6 +66,11 @@ describe Shop do
         
         expect(shop.errors_on(:geocoding)).to include("not found") 
       end
+      
+      it "correct address elements" do
+        #TODO
+        pending
+      end
     end
   end
 end

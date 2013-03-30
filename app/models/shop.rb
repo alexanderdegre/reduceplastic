@@ -24,9 +24,21 @@ class Shop < ActiveRecord::Base
         errors.add(:geocoding, "not found") if precise_results.size < 1
       when precise_results.size == 1
         first_result = precise_results[0]
-        #TODO correct address
+        import_gmap_results(first_result)
+          
         self.latitude, self.longitude = first_result.latitude, first_result.longitude
     end
+  end
+  
+  def import_gmap_results(result)
+    street_number_array = result.address_components_of_type(:street_number)
+    street_number = if street_number_array[0] != nil
+      street_number_array[0]["long_name"]
+    end 
+    street = "#{result.route} #{street_number}"
+    
+    self.country, self.state, self.postalcode, self.street, self.city = 
+          result.country, result.state, result.postal_code, street, result.city
   end
   
   def has_validation_errors? 
