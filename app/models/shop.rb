@@ -32,10 +32,10 @@ class Shop < ActiveRecord::Base
   
   def import_gmap_results(result)
     street_number_array = result.address_components_of_type(:street_number)
-    street_number = if street_number_array[0] != nil
-      street_number_array[0]["long_name"]
+    street_number = if street_number_array.first
+      street_number_array.first["long_name"]
     end 
-    street = "#{result.route} #{street_number}"
+    street = [result.route, street_number].compact.join(' ')
     
     self.country, self.state, self.postalcode, self.street, self.city = 
           result.country, result.state, result.postal_code, street, result.city
