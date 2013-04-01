@@ -12,6 +12,11 @@ describe Shop do
     end 
   end
   
+  context "address search (proposals, ajax)" do
+    pending
+    #TODO get address search proposals via: Shop.search_address("input") 
+  end
+  
   context "validation" do
     describe "minlength" do
       {:name => 2,:postalcode => 5,:street => 2,:city => 2}.each do |field, min_length|

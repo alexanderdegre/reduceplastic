@@ -8,7 +8,7 @@ class Shop < ActiveRecord::Base
   
   geocoded_by :full_street_address
   
-  #private
+  private
   
   def address_not_found
     #geocoder checks only needed if no essential validation errors found so far
