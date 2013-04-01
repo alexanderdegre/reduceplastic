@@ -17,6 +17,13 @@ FactoryGirl.define do
     city 'Frankfurt'
   end
   
+  factory :shop_address_with_typos, class: Shop do
+    name "test shop"
+    street "Linssenberg 5"
+    postalcode "63065"
+    city "Ofenbach"
+  end
+  
   factory :shop_address_street_only, class: Shop do
     name "test shop"
     street 'Hauptstrasse 100'

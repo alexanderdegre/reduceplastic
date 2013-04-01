@@ -8,15 +8,16 @@ class Shop < ActiveRecord::Base
   
   geocoded_by :full_street_address
   
-  private
+  #private
   
   def address_not_found
     #geocoder checks only needed if no essential validation errors found so far
-    return if has_validation_errors?
-    
+    return if has_essential_validation_errors?
+            
     results = Geocoder.search(full_street_address)
     good_precisions = ['ROOFTOP', 'RANGE_INTERPOLATED']
     precise_results = results.map { |r| r if good_precisions.include?(r.precision) and not(r.data["partial_match"]) }.compact
+    
     case 
       when precise_results.size > 1
         errors.add(:geocoding, "different results found") if precise_results.size > 1
@@ -41,8 +42,8 @@ class Shop < ActiveRecord::Base
           result.country, result.state, result.postal_code, street, result.city
   end
   
-  def has_validation_errors? 
-    self.errors.size > 0
+  def has_essential_validation_errors? 
+    self.errors.to_hash.delete_if {|key| key >= :geocoding }.size > 0
   end
   
   def full_street_address

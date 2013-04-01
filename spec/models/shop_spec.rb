@@ -12,7 +12,7 @@ describe Shop do
     end 
   end
   
-  context "with validations" do
+  context "validation" do
     describe "minlength" do
       {:name => 2,:postalcode => 5,:street => 2,:city => 2}.each do |field, min_length|
         sample_value = string_with_length(min_length-1)
@@ -35,12 +35,12 @@ describe Shop do
       end
     end
     
-    describe "address validations via geocoding" do
+    describe "address via geocoding" do
       #sample url: http://maps.googleapis.com/maps/api/geocode/json?address=Hauptstrasse%20100,%20Frankfurt&sensor=false
       
       before :each do
           #ensure that "address_not_found" will be called now
-          Shop.class_eval 'def has_validation_errors?; false; end'
+          Shop.class_eval 'def has_essential_validation_errors?; false; end'
       end
       
       it "address not precise - no precise result" do
@@ -67,9 +67,12 @@ describe Shop do
         expect(shop.errors_on(:geocoding)).to include("not found") 
       end
       
-      it "correct address elements" do
-        #TODO
-        pending
+      it "correct address typos" do
+        shop = FactoryGirl.build(:shop_address_with_typos)
+        
+        expect(shop.errors_on(:geocoding)).to be_empty
+        shop.street.should eq("Linsenberg 5")
+        shop.city.should eq("Offenbach")
       end
     end
   end
