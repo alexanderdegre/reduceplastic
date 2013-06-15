@@ -2,7 +2,7 @@
 require "spec_helper"
 
 describe Shop do
-  context "makes geocoding" do
+  context "create geocoding" do
     it "for correct address" do
       shop = FactoryGirl.create(:shop_valid_address)
       
@@ -12,16 +12,17 @@ describe Shop do
     end 
   end
   
-  context "address search (proposals, ajax)" do
+  context "create address proposal/search (ajax)" do
     pending
     #TODO get address search proposals via: Shop.search_address("input") 
   end
   
   context "validates" do
-    context "fields" do    
+    context "fields" do
+      field_name_minlength_map = {:name => 2, :postalcode => 5, :street => 2, :city => 2}
+          
       describe "minlength" do
-        #TODO: reduce code duplication!
-        {:name => 2,:postalcode => 5,:street => 2,:city => 2}.each do |field, min_length|
+        field_name_minlength_map.each do |field, min_length|
           sample_value = string_with_length(min_length-1)
           
           it "for #{field} with minlength #{min_length} (value: #{sample_value})" do
@@ -33,9 +34,8 @@ describe Shop do
       end
       
       describe "required" do
-        #TODO: reduce code duplication!
-        {:name => 2,:postalcode => 5,:street => 2,:city => 2}.keys.each do |field, min_length|
-          it "#{field}" do
+        field_name_minlength_map.each do |field, min_length|
+          it "for #{field}" do
             shop = FactoryGirl.build(:shop, field => nil)
           
             expect(shop.errors_on(field)).to include("can't be blank")          
