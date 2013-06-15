@@ -2,7 +2,7 @@
 require "spec_helper"
 
 describe Category do
-  context "with validations" do
+  context "validates" do
     it "name should be unique" do
       FactoryGirl.create(:category, name: 'Getränke')
       
@@ -12,8 +12,8 @@ describe Category do
     end
   end
   
-  context "with url creation" do
-    it "url should be numbered with same url" do
+  context "creates url" do
+    it "with numbering if name already exists" do
       FactoryGirl.create(:category, name: 'Getränke')
       
       second_category = FactoryGirl.create(:category, name: 'Getranke')
