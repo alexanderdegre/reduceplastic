@@ -15,16 +15,17 @@ class Shop < ActiveRecord::Base
     return if has_essential_validation_errors?
             
     results = Geocoder.search(full_street_address)
+    
     good_precisions = ['ROOFTOP', 'RANGE_INTERPOLATED']
     precise_results = results.map { |r| r if good_precisions.include?(r.precision) and not(r.data["partial_match"]) }.compact
     
     case 
       when precise_results.size > 1
-        errors.add(:geocoding, "different results found") if precise_results.size > 1
+        errors.add(:geocoding, "different results found")
       when precise_results.size < 1
-        errors.add(:geocoding, "not found") if precise_results.size < 1
+        errors.add(:geocoding, "not found")
       when precise_results.size == 1
-        first_result = precise_results[0]
+        first_result = precise_results.first
         import_gmap_results(first_result)
           
         self.latitude, self.longitude = first_result.latitude, first_result.longitude
