@@ -2,8 +2,8 @@
 require "spec_helper"
 
 describe Category do
-  context "validates" do
-    it "name should be unique" do
+  context "when validates" do
+    it "shows error if name not unique" do
       FactoryGirl.create(:category, name: 'Getränke')
       
       same_name_category = FactoryGirl.build(:category, name: 'Getränke')
@@ -12,8 +12,8 @@ describe Category do
     end
   end
   
-  context "creates url" do
-    it "with numbering if name already exists" do
+  context "when creating url" do
+    it "adds number to url part if name already exists" do
       FactoryGirl.create(:category, name: 'Getränke')
       
       second_category = FactoryGirl.create(:category, name: 'Getranke')
